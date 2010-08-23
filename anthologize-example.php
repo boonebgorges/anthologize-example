@@ -16,46 +16,41 @@ class Anth_Example {
 	}
 
 	function register_format() {
-				
+		
+		// Register the format itself
 		$name = 'example_format';
 		$label = 'My Anthologize Format';
 		$loader_file = dirname(__FILE__) . '/base.php';
-		
-		$font_faces = array(
-			'label' => 'Font Face',
-			'values' => array(
-				'courier' => 'Courier',
-				'georgia' => 'Georgia',
-				'garamond' => 'Garamond'
-			),
-			'default' => 'georgia'
-		);
-		
-		$margins = array(
-			'label' => 'Margins',
-			'values' => array(
-				'.25' => '.25in',
-				'.50' => '.50in',
-				'.75' => '.75in',
-				'1' => '1.0in'
-			),
-			'default' => '.50'
-		);
-		
-		$website = array(
-			'label' => 'Website',
-			'type' => 'textbox'
-		);
-			
-		$options = array(
-			'page-size' => false,
-			'font-size' => false,
-			'font-face' => $font_faces,
-			'margins' => $margins,
-			'website' => $website
-		);
 				
-		anthologize_register_format( $name, $label, $loader_file, $options );
+		anthologize_register_format( $name, $label, $loader_file );
+		
+		
+		
+		// Register the first option, font-face
+		$font_face_name = 'font-face';
+		$font_face_label = 'Font Face';
+		$font_face_type = 'dropdown';
+		$font_face_values = array(
+			'courier' => 'Courier',
+			'georgia' => 'Georgia',
+			'garamond' => 'Garamond'
+		);
+		$font_face_default = 'georgia';
+
+		anthologize_register_format_option( 'example_format', $font_face_name, $font_face_label, $font_face_type, $font_face_values, $font_face_default );
+		
+		
+		
+		// Here's another option, 'website', of type 'textbox', which requires no predetermined values 
+		$website_name = 'website';
+		$website_label = 'Website';
+		$website_type = 'textbox';
+		
+		anthologize_register_format_option( 'example_format', $website_name, $website_label, $website_type );
+		
+		
+		
+			
 	}
 }
 $anth_example = new Anth_Example();
