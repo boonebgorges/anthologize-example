@@ -13,6 +13,7 @@ class Anth_Example {
 
 	function __construct() {
 		add_action( 'anthologize_init', array( $this, 'register_format' ) );
+		add_action( 'anthologize_init', array( $this, 'deregister_format' ),999 );
 	}
 
 	function register_format() {
@@ -46,11 +47,13 @@ class Anth_Example {
 		$website_label = 'Website';
 		$website_type = 'textbox';
 		
-		anthologize_register_format_option( 'example_format', $website_name, $website_label, $website_type );
-		
-		
-		
-			
+		anthologize_register_format_option( 'example_format', $website_name, $website_label, $website_type );	
+	}
+	
+	// Just for the fun of it, let's deregister some stuff
+	function deregister_format() {
+		anthologize_deregister_format( 'tei' );	
+		anthologize_deregister_format_option( 'pdf', 'font-face' );
 	}
 }
 $anth_example = new Anth_Example();
